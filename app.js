@@ -32,15 +32,15 @@ var upload = multer({
 
 // Creating an SQL connection with a Database
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
+  host: "database-2.cxigg18gsjob.us-east-2.rds.amazonaws.com",
+  user: "admin",
   password: "123456789",
-  database: 'dashboarddb'
+  database: 'dashboardDB'
 });
 // Creating connection and using the DashboardDB database when the server is run.
 con.connect(function(err) {
   if (err) throw err;
-  con.query('USE DashboardDB;', function() {
+  con.query('USE dashboardDB;', function() {
     console.log("Used dashboardDB")
   });
   console.log("Connected to RDS Database");
@@ -225,6 +225,6 @@ app.post('/mysubmission',function(req,res){
 
 
 // Function for creating a server at a particular port
-app.listen(3000, function() {
+app.listen(8080, function() {
   console.log("Server has started at 3000")
 })
