@@ -13,6 +13,8 @@ ADD . /app
 COPY package*.json ./
 RUN npm install
 RUN apt-get update || : && apt-get install python -y
+RUN python-pip
+RUN pip install sklearn
 # If you are building your code for production
 # RUN npm ci --only=production
 
