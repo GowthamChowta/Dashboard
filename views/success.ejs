@@ -1,0 +1,41 @@
+<%- include('partials/header'); -%>
+    <div class="message_pad">
+
+      <div class="container message">
+        <i class="fa fa-check-circle fa-8x green" aria-hidden="true"></i>
+
+        <h1>Thank you!</h1>
+        <p>Your submission has been received</p>
+
+      </div>
+      <div class="box">
+        <h5>Please find your submission details</h5>
+        <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Assignment</th>
+                <th scope="col">Score</th>
+                <th scope="col">Submissions Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td> <%= name %></td>
+                <td> <%= assignment %></td>
+                <td><%= score%> </td>
+                <td><%= subcount%> </td>
+              </tr>
+            </table>
+
+      </div>
+
+    </div>
+
+<script src="loadingbar.js"> </script>
+  </body>
+<div class="se-pre-con"></div>
+
+<%- include('partials/footer'); -%>

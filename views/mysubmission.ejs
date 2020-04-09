@@ -1,0 +1,63 @@
+<%- include('partials/header'); -%>
+
+<div class="home">
+  <h3 id="header">My Submissions</h3>
+  <i id='getAssignmentValue' value="<%=assignment %>" hidden></i>
+  <form class="" action="/mysubmission" method="post">
+
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="form-group required">
+          <label class="control-label" for="email">Email</label>
+          <input name="email" type="email" class="form-control" required value="<%=email%>">
+        </div>
+
+        <div class="form-group required">
+
+          <label class="control-label" for="assignment">Assignment: </label>
+          <select class="check" name="assignment" id="assignment" required>
+            <!-- <option value="none" disabled hidden>Select an Option </option> -->
+            <option value="1">1 (Naive Bayes)</option>
+            <option value="2">2 (Logistic Regression)</option>
+            <option value="3">3 (K Neighbours)</option>
+            <option value="4">4 (Deep Learning)</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-secondary submitMysub">Find My Submissions</button>
+      </div>
+    </div>
+  </form>
+<h3 class="message"><%=mySubMessage %> </h3>
+
+  <table class="table border tableMysub">
+
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Submission Count</th>
+        <th scope="col">Score</th>
+        <th scope="col">Message</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%      if(results.length>0){var i=1     %>
+      <%      results.forEach(function(data){     %>
+
+      <tr>
+        <th scope="row"><%=i++ %></th>
+        <td><%= data.score%></td>
+        <td><%= data.message %></td>
+      </tr>
+      <%       }  )     }                    %>
+  </table>
+
+</div>
+<script src="index.js"></script>
+<script type="text/javascript">
+  if ($('#getAssignmentValue').attr('value') !== '') {
+    var value = $('#getAssignmentValue').attr('value')
+    $('.check')[0].value = value
+  }
+</script>
+</body>
+
+<%- include('partials/footer'); -%>

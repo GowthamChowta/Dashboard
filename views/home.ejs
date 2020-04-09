@@ -1,0 +1,64 @@
+<%- include('partials/header'); -%>
+
+<h1 id="header">Make submission here</h1>
+<p id="homescreenmsg">Please select the approriate assignment and upload the CSV file</p>
+<form action="/post" method="POST" enctype="multipart/form-data" class="home">
+  <div class="row">
+
+    <!-- Makes POST request to /login route -->
+    <div class="col-lg-6">
+
+      <div class="form-group required">
+        <label class="control-label" for="name">Name</label>
+        <input type="text" class="form-control" name="name" required minlength="5">
+      </div>
+      <div class="form-group required">
+        <label class="control-label" for="email">Email</label>
+        <input type="email" class="form-control" name="email" required>
+      </div>
+
+      <div class="form-group required">
+        <label class="control-label" for="assignment">Assignment: </label>
+        <select class="check" name="assignment" id="assignment" required>
+          <option value="none" selected disabled hidden>Select an Option </option>
+          <option value="1">1 (Naive Bayes)</option>
+          <option value="2">2 (Logistic Regression)</option>
+          <option value="3">3 (K Neighbours)</option>
+          <option value="4">4 (Deep Learning)</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-6">
+
+      <div class="form-group">
+        <label class="control-label" for="aboutSub">Message:</label>
+        <input type="text" class="form-control" name="aboutSub" placeholder="Enter anything about this submission">
+      </div>
+
+      <div class="form-group required">
+
+        <i class="fa fa-upload fa-5x" style=""></i>
+        <p class="control-label" id="upload_file"> Upload File</p>
+        <p id="upload_file_message"></p>
+        <input type="file" id="upload_id" name="file" value="upload" hidden></input>
+      </div>
+
+
+
+    </div>
+
+
+    <button type="submit" class="btn btn-secondary submitfile" disabled>Submit</button>
+  </div>
+
+</form>
+
+
+
+<script src="home.js"> </script>
+<script src="loadingbar.js"> </script>
+</body>
+
+<div class="se-pre-con"></div>
+
+<%- include('partials/footer'); -%>

@@ -1,0 +1,54 @@
+  <%- include('partials/header'); -%>
+
+  <div class="home" id="header">
+    <h3>Leaderboard Details</h3>
+    <form class="" action="/leaderboard" method="post" >
+
+    <i id='getAssignmentValue' value="<%=assignment %>" hidden></i>
+    <div class="form-group required">
+
+      <label class="control-label" for="assignment">Assignment: </label>
+      <select class="check" name="assignment" id="assignment" value="<%=assignment%>" required>
+        <option value="none" selected disabled hidden>Select an Option </option>
+        <option value="1">1 (Naive Bayes)</option>
+        <option value="2">2 (Logistic Regression)</option>
+        <option value="3">3 (K Neighbours)</option>
+        <option value="4">4 (Deep Learning)</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-secondary submitLB" disabled>Submit</button>
+    </form>
+    <h3 class="message"><%=message %> </h3>
+    <table class="table border">
+
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Score</th>
+            <th scope="col">Submission Count</th>
+            <th scope="col">Rank</th>
+          </tr>
+        </thead>
+        <tbody>
+  <%      if(users.length>0){var i=1     %>
+  <%      users.forEach(function(data){     %>
+
+          <tr>
+            <th scope="row"><%=i++ %></th>
+            <td> <%= data.username %></td>
+            <td><%= data.score%></td>
+            <td><%= data.subcount%></td>
+            <td class="rank"><%= data.position%></td>
+
+          </tr>
+  <%       }  )     }                    %>
+        </table>
+
+        <script src="index.js"></script>
+        <script src="leaderboard.js"></script>
+
+  </div>
+</body>
+
+<%- include('partials/footer'); -%>

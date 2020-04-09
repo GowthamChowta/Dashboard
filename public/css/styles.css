@@ -1,0 +1,148 @@
+/* TO maintain the footer at the bottom of the page */
+html{
+  position:relative;
+  min-height: 100%;
+}
+
+/* Loading bar */
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url("http://smallenvelop.com/wp-content/uploads/2014/08/Preloader_2.gif") center no-repeat #fff;
+}
+
+/* FOr all the disable buttons */
+button:disabled,
+button[disabled] {
+  cursor: not-allowed;
+}
+
+/* navigation bar */
+
+.navbar{
+  background: #fab60a;
+  margin-bottom: 20px;
+}
+
+nav .nav-link{
+  color: white;
+  font-weight: 200;
+}
+
+.navbar-brand{
+  color: white;
+font-weight: 600;
+}
+
+/* To add asteric after the mandatory field */
+.form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}
+
+/* Home screen */
+.home{
+  padding: 3% 7%;
+
+}
+#homescreenmsg{
+  text-align: center;
+}
+
+/* Table properties */
+.row{
+  padding: 3% 7%;
+  margin: 3% 7%;
+  border: 0.2px solid grey;
+}
+
+/* Table in my submission page */
+.tableMysub{
+  padding: 3% 7%;
+}
+
+
+#header{
+  text-align: center;
+
+}
+
+.submitfile{
+  text-align: center;
+  margin: auto;
+}
+
+/* Home upload */
+.fa-upload{
+  margin-left: 35%;
+  margin-top: 2%;
+  color: blue;
+  cursor:pointer;
+
+}
+
+.fa-upload:hover{
+  color: skyblue;
+}
+
+#upload_file{
+  margin-left: 35%;
+  font-size: small;
+}
+
+#upload_file_message{
+  margin-left: 30%;
+  font-size: small;
+}
+
+
+/* Success page */
+.message{
+  text-align: center;
+
+}
+
+.green{
+  color:green;
+}
+
+/* Footer page */
+footer {
+	position: absolute;
+	text-align: center;
+	bottom: 0;
+  /* margin-bottom: auto; */
+	width: 100%;
+	height: 30px;
+	background-color: #f4f4f4;
+}
+
+.footer_text {
+  /* position: relative; */
+	/* margin-top: 25px; */
+	font-size: 12px;
+  background-color: #f4f4f4;
+  padding: 1.5%;
+  margin-bottom: 0;
+  /* color: #fff; */
+  /* font-weight: 700; */
+}
+
+.message_pad{
+  padding: 3% 7%;
+}
+.box{
+  margin-top: 10px;
+}
+
+/* leaderboard page */
+
+.hidden{
+  visibility: hidden;
+}
