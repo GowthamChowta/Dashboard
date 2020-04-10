@@ -12,9 +12,10 @@ ADD . /app
 # where available (npm@5+)
 COPY package*.json ./
 RUN npm install
-RUN apt-get update || : && apt-get install python -y
-RUN python-pip
-RUN pip install sklearn
+RUN apt-get update || : && apt-get install python3 -y
+RUN apt-get install -y python3-pip
+RUN pip3 install sklearn
+RUN pip3 install pandas
 # If you are building your code for production
 # RUN npm ci --only=production
 
