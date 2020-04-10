@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Failed</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="https://kit.fontawesome.com/3670701323.js" crossorigin="anonymous"></script>
-  </head>
-  <body>
-    <div class="message message_pad">
+<%- include('partials/header'); -%>
 
-      <i class="fa fa-frown-o fa-8x" aria-hidden="true"></i>
-      <h1>OOPS</h1>
-      <p>There is some problem in the submission, Can you please try again</p>
-      <a href="/home" class="btn btn-info" role="button">Home</a>
+<div class="message message_pad">
 
+    <!-- <i class="fa fa-frown-o fa-8x" aria-hidden="true"></i> -->
+    <img src="images/close.png" alt="Error">
+    <h1>OOPS</h1>
+    <p>There is some problem in the submission, Can you please try again</p>
+
+    <div class="formfield">
+      <label for="errormessage">Error Message: </label>
+      <textarea id="errormessage" rows="3" cols="80" readonly><%= error%></textarea>
     </div>
+  </div>
 
-  </body>
-</html>
+</body>
+
+<%- include('partials/footer'); -%>

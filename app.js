@@ -100,15 +100,19 @@ app.post('/post', upload.single('file'), function(req, res, next) {
     options.args = [filepath, metric]
     // Running the python file that will give me an accuracy_score
     PythonShell.run('test.py', options, function(err, results) {
-      if (err)
-        throw err;
+      if (err){
+        // If any failure in calcuclating python code it will throw the error
+        res.render('failure',{error:err})
+        return;
+        }
+        // throw err;
       // Results is an array consisting of messages collected during execution
       var r = results;
       // Query to update the Database with the content
       let q=`INSERT INTO user (username,email,score,assignment,message) VALUES ('${name}','${email}','${r}','${assignment}','${message}');`
       con.query(q, function(upd_error, upd_result, upd_fields) {
-        if (err) {
-          throw err
+        if (upd_error) {
+          throw upd_error
         } else {
           // If the result is success we are redirecting it to success route
           var url_s = url.format({pathname: "/success",

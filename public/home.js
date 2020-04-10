@@ -20,7 +20,7 @@ $("input#upload_id").change(function () {
 
     if(fileName.slice(length-3)==='csv'){
       $('#upload_file_message').css('color','green')
-      $('#upload_file_message')[0].innerHTML='File uploaded '+fileName
+      $('#upload_file_message')[0].innerHTML='File format accepted '+fileName
       file=1
     }
     else

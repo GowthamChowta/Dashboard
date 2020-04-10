@@ -146,3 +146,8 @@ footer {
 .hidden{
   visibility: hidden;
 }
+
+/* Error message form field alignment */
+#errormessage {
+  vertical-align: middle
+}
