@@ -6,6 +6,7 @@ const multer = require('multer')
 const url = require('url');
 const ejs = require("ejs");
 const {PythonShell} = require('python-shell')
+const fs = require('fs')
 const app = express()
 
 // Telling express to use ejs view engine and files are stored in public and for parsing the request
@@ -32,7 +33,7 @@ var upload = multer({
 
 // Creating an SQL connection with a Database
 var con = mysql.createConnection({
-  host: "database-2.cxigg18gsjob.us-east-2.rds.amazonaws.com",
+  host: "aaic-classroom-dashboard-test.cpraljnmtjnl.ap-south-1.rds.amazonaws.com",
   user: "admin",
   password: "123456789",
   database: 'dashboardDB'
@@ -100,12 +101,19 @@ app.post('/post', upload.single('file'), function(req, res, next) {
     options.args = [filepath, metric]
     // Running the python file that will give me an accuracy_score
     PythonShell.run('test.py', options, function(err, results) {
+      // Deleting the uploaded file after getting any error or results:
+      try {
+        fs.unlinkSync(filepath)
+        //file removed
+      } catch(file_err) {
+        console.log(file_err)
+      }
+
       if (err){
         // If any failure in calcuclating python code it will throw the error
         res.render('failure',{error:err})
         return;
         }
-        // throw err;
       // Results is an array consisting of messages collected during execution
       var r = results;
       // Query to update the Database with the content
@@ -126,6 +134,9 @@ app.post('/post', upload.single('file'), function(req, res, next) {
         }
 
       })
+
+
+
     })
   }
   main();
@@ -230,5 +241,5 @@ app.post('/mysubmission',function(req,res){
 
 // Function for creating a server at a particular port
 app.listen(8080, function() {
-  console.log("Server has started at 3000")
+  console.log("Server has started at 8080")
 })
