@@ -1,4 +1,5 @@
 // Import libraries
+const dotenv = require('dotenv');
 const mysql = require('mysql2');
 const express = require('express');
 const bodyParser = require('body-parser')
@@ -8,6 +9,9 @@ const ejs = require("ejs");
 const {PythonShell} = require('python-shell')
 const fs = require('fs')
 const app = express()
+const AWS = require('aws-sdk');
+// #Load the environment variables
+dotenv.config();
 
 // Telling express to use ejs view engine and files are stored in public and for parsing the request
 app.use(express.static('public'))
@@ -33,9 +37,9 @@ var upload = multer({
 
 // Creating an SQL connection with a Database
 var con = mysql.createConnection({
-  host: "aaic-classroom-dashboard-test.cpraljnmtjnl.ap-south-1.rds.amazonaws.com",
-  user: "admin",
-  password: "123456789",
+  host: process.env.host,
+  user: process.env.user,
+  password: process.env.password,
   database: 'dashboardDB'
 });
 // Creating connection and using the DashboardDB database when the server is run.
@@ -58,6 +62,16 @@ var options = {
   // scriptPath: 'test.py',
 };
 
+// AWS configuration
+AWS.config.update(
+  {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.Region
+  }
+);
+// Initiating S3 object
+var s3 = new AWS.S3();
 
 
 let messages=['Sorry we don\'t have any submissions for this assignment',
@@ -84,6 +98,8 @@ app.post('/post', upload.single('file'), function(req, res, next) {
   var filepath = req.file.path;
   var message= req.body.aboutSub;
   var metric;
+  var ytest_filepath='./dataFiles/y_test.csv';
+  var bucket_filepath;
 
   // Declared a async function to wait till the query returns the output
   async function main() {
@@ -92,10 +108,26 @@ app.post('/post', upload.single('file'), function(req, res, next) {
     await con.promise().query("SELECT * from assignments where id=?", assignment)
       .then(([rows, fields]) => {
         metric = rows[0].metric;
-      })
-      .catch(console.log)
+        bucket_filepath= rows[0].filename;
+      });
+
     // .then( () => con.end());
     // console.log("metirc is" + metric);
+
+    bucket_filepath='Assignment_test_files/'+bucket_filepath
+    var bucket_options = {
+        Bucket    : 'aaic-classroom-dashboard',
+        Key    : bucket_filepath,
+    };
+
+    await  s3.getObject(bucket_options).promise()
+        .then(function(data){
+          fs.writeFileSync(ytest_filepath, data.Body.toString());
+          console.log('File has been written successfully');
+        })
+        .catch(function(get_objerr){
+          console.log(get_objerr);
+        })
 
     // Adding the metric, and file path as params to python file
     options.args = [filepath, metric]
@@ -104,6 +136,7 @@ app.post('/post', upload.single('file'), function(req, res, next) {
       // Deleting the uploaded file after getting any error or results:
       try {
         fs.unlinkSync(filepath)
+        fs.unlinkSync(ytest_filepath)
         //file removed
       } catch(file_err) {
         console.log(file_err)
@@ -134,8 +167,6 @@ app.post('/post', upload.single('file'), function(req, res, next) {
         }
 
       })
-
-
 
     })
   }
