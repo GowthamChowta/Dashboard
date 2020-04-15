@@ -36,20 +36,20 @@ var upload = multer({
 });
 
 // Creating an SQL connection with a Database
-var con = mysql.createConnection({
+var con = mysql.createPool({
   host: process.env.host,
   user: process.env.user,
   password: process.env.password,
   database: 'dashboardDB'
 });
 // Creating connection and using the DashboardDB database when the server is run.
-con.connect(function(err) {
-  if (err) throw err;
-  con.query('USE dashboardDB;', function() {
-    console.log("Used dashboardDB")
-  });
-  console.log("Connected to RDS Database");
-});
+// con.connect(function(err) {
+//   if (err) throw err;
+//   con.query('USE dashboardDB;', function() {
+//     console.log("Used dashboardDB")
+//   });
+//   console.log("Connected to RDS Database");
+// });
 //   con.end();
 // });
 
@@ -97,6 +97,7 @@ app.post('/post', upload.single('file'), function(req, res, next) {
   var assignment = req.body.assignment;
   var filepath = req.file.path;
   var message= req.body.aboutSub;
+  var colabLink=req.body.ColabFile;
   var metric;
   var ytest_filepath='./dataFiles/y_test.csv';
   var bucket_filepath;
@@ -142,6 +143,7 @@ app.post('/post', upload.single('file'), function(req, res, next) {
         console.log(file_err)
       }
 
+      console.log('I am here');
       if (err){
         // If any failure in calcuclating python code it will throw the error
         res.render('failure',{error:err})
@@ -150,7 +152,7 @@ app.post('/post', upload.single('file'), function(req, res, next) {
       // Results is an array consisting of messages collected during execution
       var r = results;
       // Query to update the Database with the content
-      let q=`INSERT INTO user (username,email,score,assignment,message) VALUES ('${name}','${email}','${r}','${assignment}','${message}');`
+      let q=`INSERT INTO user (username,email,score,assignment,message,colabFileLink) VALUES ('${name}','${email}','${r}','${assignment}','${message}','${colabLink}');`
       con.query(q, function(upd_error, upd_result, upd_fields) {
         if (upd_error) {
           throw upd_error
@@ -167,6 +169,9 @@ app.post('/post', upload.single('file'), function(req, res, next) {
         }
 
       })
+
+
+
 
     })
   }

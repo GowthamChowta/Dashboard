@@ -9,8 +9,6 @@ import pandas as pd
 filepath=sys.argv[1]
 metric=sys.argv[2]
 
-filepath='uploads/test_y_o.csv'
-metric='acc'
 
 data_act=pd.read_csv('dataFiles/y_test.csv')
 

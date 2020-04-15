@@ -35,10 +35,11 @@ nav .nav-link{
   font-weight: 200;
 }
 
-.navbar-brand{
-  color: white;
-font-weight: 600;
+nav .nav-link:hover{
+  color: #dee3e2;
 }
+
+
 
 /* To add asteric after the mandatory field */
 .form-group.required .control-label:after {
